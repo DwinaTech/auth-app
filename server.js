@@ -77,7 +77,7 @@ server.get("/logout", isAuthenticated, (req, res) => {
   res.redirect(urlPath);
 });
 
-server.get("/sign-up", (req, res) => {
+server.get("/sign-up", isLoggedIn, (req, res) => {
   res.render("sign-up");
 });
 
