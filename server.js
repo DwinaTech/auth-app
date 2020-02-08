@@ -47,7 +47,7 @@ const isLoggedIn = (req, res, next) => {
 };
 
 server.get("/", isAuthenticated, (req, res) => {
-  res.render("index", { title: 'hello world' });
+  res.render("index", { user: true });
 });
 
 server.post(
