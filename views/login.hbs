@@ -1,0 +1,29 @@
+<h1 class="login">Login</h1>
+{{#if messages.error}}
+<h2>
+    {{messages.error}}
+</h2>
+{{/if}}
+{{#if message}}
+<h2>
+    {{message}}
+</h2>
+{{/if}}
+<form method="POST" action="/login">
+    <div class="form-group">
+        <label for="exampleInputEmail1">Email address</label>
+        <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword1">Password</label>
+        <input name="password" type="password" class="form-control" id="exampleInputPassword1">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <sub class="go-to-sign-up">If you do not have an account press
+        <strong>
+            <a href="/sign-up">Here</a>
+        </strong>
+        to sign up
+    </sub>
+</form>

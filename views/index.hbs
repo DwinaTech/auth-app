@@ -8,10 +8,11 @@
 </head>
 <body>
     <h1>Auth Application</h1>
-    <% if (messages.success) { %>
+    {{#if messages.success}}
         <h2>
-            <%= messages.success %>
+            {{messages.success}}
         </h2>
-    <% } %>
+    {{/if}}
+    <button type="button">Logout</button>
 </body>
 </html>
