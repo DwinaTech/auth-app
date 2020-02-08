@@ -4,6 +4,7 @@ const passport = require("passport");
 const flash = require("express-flash");
 const session = require("express-session");
 const bodyParser = require("body-parser");
+var exphbs  = require('express-handlebars');
 const passportConfig = require("./passport-config");
 const path = require("path");
 
@@ -15,9 +16,11 @@ passportConfig(passport, users);
 
 const server = express();
 
-server.set("view-engine", "ejs");
+server.engine('hbs', exphbs());
+server.set('view engine', 'hbs');
+
 server.use(flash());
-server.use(bodyParser.json());
+server.use(bodyParser.urlencoded({ extended: false }));
 server.use(
   session({
     secret: "keyboard cat",
@@ -44,7 +47,7 @@ const isLoggedIn = (req, res, next) => {
 };
 
 server.get("/", isAuthenticated, (req, res) => {
-  res.render("index.ejs");
+  res.render("index", { title: 'hello world', logOut: () => {} });
 });
 
 server.post(
@@ -60,10 +63,10 @@ server.post(
 
 server.get("/login", isLoggedIn, (req, res) => {
   const { message } = req.query;
-  res.render("login.ejs", { message });
+  res.render("login", { message });
 });
 
-server.delete("/logout", isAuthenticated, (req, res) => {
+server.get("/logout", isAuthenticated, (req, res) => {
   const urlPath = url.format({
     pathname:"/login",
     query: {
@@ -75,7 +78,7 @@ server.delete("/logout", isAuthenticated, (req, res) => {
 });
 
 server.get("/sign-up", (req, res) => {
-  res.render("sign-up.ejs");
+  res.render("sign-up");
 });
 
 server.listen(port, console.log(`Server is running on ${port}`));
