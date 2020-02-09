@@ -83,4 +83,8 @@ server.get("/sign-up", isLoggedIn, (req, res) => {
   res.render("sign-up");
 });
 
+server.post("/sign-up", isLoggedIn, (req, res) => {
+  res.redirect('/login');
+});
+
 server.listen(port, console.log(`Server is running on ${port}`));
