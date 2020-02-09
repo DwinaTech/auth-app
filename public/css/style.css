@@ -5,7 +5,7 @@ body {
   min-height: 100vh;
 }
 
-@media (min-width: 0) and (max-width: 1199.98px) {
+@media (min-width: 576px) and (max-width: 1199.98px) {
   .container {
     max-width: 100%;
     padding: 0;
