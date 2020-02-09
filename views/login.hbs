@@ -2,12 +2,12 @@
     <div class="col-lg-6 offset-lg-3">
         <h1 class="login">Login</h1>
         {{#if messages.error}}
-        <h2>
+        <h2 class="alert alert-danger mt-3" role="alert">
             {{messages.error}}
         </h2>
         {{/if}}
         {{#if message}}
-        <h2>
+        <h2 class="alert alert-success mt-3" role="alert">
             {{message}}
         </h2>
         {{/if}}
