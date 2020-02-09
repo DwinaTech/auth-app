@@ -10,7 +10,7 @@ const path = require("path");
 
 const port = process.env.PORT || 4000;
 
-const users = [{ email: "a@m.com", password: "p", id: 1 }];
+const users = [{ email: "a@m.com", password: "p", id: Date.now().toString() }];
 
 passportConfig(passport, users);
 
@@ -84,7 +84,12 @@ server.get("/sign-up", isLoggedIn, (req, res) => {
 });
 
 server.post("/sign-up", isLoggedIn, (req, res) => {
-  res.redirect('/login');
+  const { password, email } = req.body;
+  if (password && email) {
+    users.push({ password, email, id: Date.now().toString() })
+    res.redirect('/login');
+  }
+  res.redirect('/sign-up')
 });
 
 server.listen(port, console.log(`Server is running on ${port}`));
