@@ -1,12 +1,12 @@
 const url = require('url'); 
+const path = require("path");
 const express = require("express");
 const passport = require("passport");
 const flash = require("express-flash");
-const session = require("express-session");
 const bodyParser = require("body-parser");
-var exphbs  = require('express-handlebars');
+const session = require("express-session");
+const exphbs  = require('express-handlebars');
 const passportConfig = require("./passport-config");
-const path = require("path");
 
 const port = process.env.PORT || 4000;
 
@@ -52,6 +52,11 @@ server.get("/", isAuthenticated, (req, res) => {
   res.render("index", { user: true });
 });
 
+server.get("/login", isLoggedIn, (req, res) => {
+  const { message } = req.query;
+  res.render("login", { message });
+});
+
 server.post(
   "/login",
   isLoggedIn,
@@ -62,22 +67,6 @@ server.post(
     successFlash: true
   })
 );
-
-server.get("/login", isLoggedIn, (req, res) => {
-  const { message } = req.query;
-  res.render("login", { message });
-});
-
-server.get("/logout", isAuthenticated, (req, res) => {
-  const urlPath = url.format({
-    pathname:"/login",
-    query: {
-       message: 'You are logged out successfully!',
-     }
-  });
-  req.logOut();
-  res.redirect(urlPath);
-});
 
 server.get("/sign-up", isLoggedIn, (req, res) => {
   res.render("sign-up");
@@ -90,6 +79,17 @@ server.post("/sign-up", isLoggedIn, (req, res) => {
     res.redirect('/login');
   }
   res.redirect('/sign-up')
+});
+
+server.get("/logout", isAuthenticated, (req, res) => {
+  const urlPath = url.format({
+    pathname:"/login",
+    query: {
+       message: 'You are logged out successfully!',
+     }
+  });
+  req.logOut();
+  res.redirect(urlPath);
 });
 
 server.listen(port, console.log(`Server is running on ${port}`));
