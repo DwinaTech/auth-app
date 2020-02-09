@@ -16,6 +16,8 @@ passportConfig(passport, users);
 
 const server = express();
 
+server.use(express.static("public"));
+
 server.engine('hbs', exphbs());
 server.set('view engine', 'hbs');
 
