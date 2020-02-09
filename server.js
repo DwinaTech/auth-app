@@ -77,8 +77,9 @@ server.post("/sign-up", isLoggedIn, (req, res) => {
   if (password && email) {
     users.push({ password, email, id: Date.now().toString() })
     res.redirect('/login');
+  } else {
+    res.redirect('/sign-up')
   }
-  res.redirect('/sign-up')
 });
 
 server.get("/logout", isAuthenticated, (req, res) => {
